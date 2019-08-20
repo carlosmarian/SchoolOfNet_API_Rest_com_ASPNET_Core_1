@@ -50,3 +50,42 @@ Para criar o projeto foi usado o comando:
 dotnet new webapi
 ```
 Este comando cria um projeto com a estrutura básica de uma WebAPI
+
+**Configurar o MYSQL**
+
+Primeiro vamos configurar a forma de acesso instalando `Pomelo.EntityFrameworkCore.MySql`:
+
+Para usar Mysql deve: 
+* Acessar https://www.nuget.org/ 
+* Pesquisar pelo pacote: MySQL Entity Framework 
+* Selecionar o pacote: Pomelo.EntityFrameworkCore.MySql copiar a linha de comando .NET CLI: exemplo: `dotnet add package Pomelo.EntityFrameworkCore.MySql --version 2.2.0` E executar no cmd
+* Após o CLI baixar e instalar as bibliotecas é recomendado executar `dotnet restore` Garante que todas as bibliotecas definidas no arq estarão instaladas.
+
+Após isso precisamos subir nosso DOCKER do Mysql:
+```
+docker-compose up
+```
+
+Depois acessar o banco usando um cliente(HeidiSQL) e criar o banco:
+```SQL
+CREATE DATABASE apirest /*!40100 COLLATE 'latin1_general_cs' */;
+```
+
+Depois é necessário configurar a sttring de conexão do nosso projeto, para isso acesse o arquivo `appsettings.json` e adicione a seguinte linha:
+```JSON
+"ConnectionStrings": {
+    "DefaultConnection": "server=localhost;port=3306;database=apirest;uid=root;password=password"
+  },
+```
+
+Depois criar a classe de contexto.
+
+E por fim ajustar o serviço;
+
+Depois para testar:
+`dotnet build`
+`dotnet watch run`
+
+E acessar : https://localhost:5001/api/values que é o exemplo de acesso.
+
+

@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using SchoolOfNet_API_Rest_com_ASPNET_Core_1.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolOfNet_API_Rest_com_ASPNET_Core_1
 {
@@ -25,6 +27,7 @@ namespace SchoolOfNet_API_Rest_com_ASPNET_Core_1
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ApplicationDbContext>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")) );
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
