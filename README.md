@@ -44,4 +44,9 @@ Grupos:
 
     ## Restful é uma API REST que foi implementada seguindo todas as recomendações do padrão.
 
-    
+
+Para criar o projeto foi usado o comando:
+```
+dotnet new webapi
+```
+Este comando cria um projeto com a estrutura básica de uma WebAPI
