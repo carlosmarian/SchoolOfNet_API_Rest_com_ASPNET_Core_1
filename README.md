@@ -89,3 +89,24 @@ Depois para testar:
 E acessar : https://localhost:5001/api/values que é o exemplo de acesso.
 
 
+**Entidade **
+
+Criar um classe `Produto` com atributos.
+
+Configurar a classe de conteto para o Produto no `ApplicationDbContext`.
+```C#
+public DbSet<Produto> Produtos { get; set ;}
+```
+
+Criar a migração:
+```
+dotnet ef migrations add AdicionandoProdutos
+```
+Com isso será gerado a arquivo de Migração na pasta `Migrations`.
+
+Após isso deve ser aplicada a migração de banco:
+```
+dotnet ef database update
+```
+OBS: Caso apresente erro de "Build failed" é pq é necessário dar um Build no projeto ou o projeto está em execução pelo 'watch'.
+
