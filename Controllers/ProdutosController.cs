@@ -22,13 +22,14 @@ namespace SchoolOfNet_API_Rest_com_ASPNET_Core_1.Controllers
             var produtos = database.Produtos.ToList();
             return Ok(new {msg = "Lista de produtos", body = produtos});
         }
+
         [HttpGet("{id}")]
         public IActionResult PegarProdutos(int id){
             try{
                 var produtos = database.Produtos.First(p => p.ID == id);
                 return Ok(new {msg = "Produto", body = produtos});
             }catch(Exception ex){
-                return BadRequest(new {msg = "Id inválido"});
+                return NotFound(new {msg = "Id inválido", body = ex});
             }            
         }
         
@@ -41,7 +42,22 @@ namespace SchoolOfNet_API_Rest_com_ASPNET_Core_1.Controllers
             database.Produtos.Add(p);
             database.SaveChanges();            
 
-            return Ok( new {info = "Retorno positivo", body = produto});
+            Response.StatusCode = 201;
+            //return Ok( new {info = "Retorno positivo", body = produto});
+            return new ObjectResult(new {info = "Retorno positivo", body = produto});
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int ID){
+            try{
+                var produtos = database.Produtos.First(p => p.ID == ID);
+                database.Produtos.Remove(produtos);
+                database.SaveChanges();
+
+                return Ok(new {msg = "Produto removido"});
+            }catch(Exception ex){
+                return NotFound(new {msg = "Id inválido", body = ex});
+            }  
         }
 
         public class ProdutoTemp{
