@@ -2,6 +2,7 @@ using System;
 using Microsoft.AspNetCore.Mvc;
 using SchoolOfNet_API_Rest_com_ASPNET_Core_1.Data;
 using SchoolOfNet_API_Rest_com_ASPNET_Core_1.Models;
+using System.Linq;
 
 namespace SchoolOfNet_API_Rest_com_ASPNET_Core_1.Controllers
 {
@@ -17,8 +18,9 @@ namespace SchoolOfNet_API_Rest_com_ASPNET_Core_1.Controllers
         }
 
         [HttpGet]
-        public IActionResult PegarProdutos(){
-            return Ok(new {nome = "Carlos", empresa = "Teste de empresa"});
+        public IActionResult Get(){
+            var produtos = database.Produtos.ToList();
+            return Ok(new {msg = "Lista de produtos", body = produtos});
         }
         [HttpGet("{id}")]
         public IActionResult PegarProdutos(int id){
