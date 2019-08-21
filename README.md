@@ -110,3 +110,8 @@ dotnet ef database update
 ```
 OBS: Caso apresente erro de "Build failed" é pq é necessário dar um Build no projeto ou o projeto está em execução pelo 'watch'.
 
+Criar um controller:
+
+Usar o `ControllerBase` pq ele é mais voltado para API, sem os tratamentos relacionados a apresentação.
+E anotar a classe com `[ApiController]`.
+
