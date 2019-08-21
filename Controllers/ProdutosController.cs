@@ -24,7 +24,12 @@ namespace SchoolOfNet_API_Rest_com_ASPNET_Core_1.Controllers
         }
         [HttpGet("{id}")]
         public IActionResult PegarProdutos(int id){
-            return Ok(new {nome = "Carlos", empresa = "Teste de empresa 2", id = id});
+            try{
+                var produtos = database.Produtos.First(p => p.ID == id);
+                return Ok(new {msg = "Produto", body = produtos});
+            }catch(Exception ex){
+                return BadRequest(new {msg = "Id inválido"});
+            }            
         }
         
         [HttpPost()]
