@@ -115,3 +115,5 @@ Criar um controller:
 Usar o `ControllerBase` pq ele é mais voltado para API, sem os tratamentos relacionados a apresentação.
 E anotar a classe com `[ApiController]`.
 
+OBS: Caso o POSTMAN não esteja atendendo as requisições, pode ser pq deve desabilitar a opção "SSL certificate verification" em SETTINGS.
+

@@ -1,4 +1,7 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
+using SchoolOfNet_API_Rest_com_ASPNET_Core_1.Data;
+using SchoolOfNet_API_Rest_com_ASPNET_Core_1.Models;
 
 namespace SchoolOfNet_API_Rest_com_ASPNET_Core_1.Controllers
 {
@@ -6,6 +9,13 @@ namespace SchoolOfNet_API_Rest_com_ASPNET_Core_1.Controllers
     [ApiController]
     public class ProdutosController: ControllerBase
     {
+
+        private readonly ApplicationDbContext database;
+
+        public ProdutosController(ApplicationDbContext database){
+            this.database = database;
+        }
+
         [HttpGet]
         public IActionResult PegarProdutos(){
             return Ok(new {nome = "Carlos", empresa = "Teste de empresa"});
@@ -13,6 +23,23 @@ namespace SchoolOfNet_API_Rest_com_ASPNET_Core_1.Controllers
         [HttpGet("{id}")]
         public IActionResult PegarProdutos(int id){
             return Ok(new {nome = "Carlos", empresa = "Teste de empresa 2", id = id});
+        }
+        
+        [HttpPost()]
+        public IActionResult Post([FromBody] ProdutoTemp produto){
+            Produto p = new Produto();
+            p.Nome = produto.Nome;
+            p.Preco = produto.Preco;
+
+            database.Produtos.Add(p);
+            database.SaveChanges();            
+
+            return Ok( new {info = "Retorno positivo", body = produto});
+        }
+
+        public class ProdutoTemp{
+            public string Nome { get; set; }
+            public float Preco { get; set; }
         }
     }
 }
